@@ -1,14 +1,21 @@
 const maxUsersCount = 50;
+var maleCount = 0;
+var femaleCount = 0;
 
 $.ajax({
 	url: 'https://randomuser.me/api/?results='+maxUsersCount,
   	dataType: 'json',
-  	success: function(data) {
-    console.log(data.results);
+  	success: function(dataPerson) {
 
-    data.results.forEach(person => {
+    dataPerson.results.forEach(person => {
     	createAccordionElement(person);
-    	})  
+	    	if(person.gender === 'male'){
+	    		maleCount++;
+	    	} else {
+	    		femaleCount++;
+	    	}
+	    	});
+    	createChart(maleCount, femaleCount);  
 	}
 });
 
@@ -34,47 +41,47 @@ var createPersonMainInfoRow = function(person, appendToElement){
 	var username = $('<div/>', {'class': 'col-2', 'text': person.login.username});
 	var phone = $('<div/>', {'class': 'col-2', 'text': person.phone});
 	var location = $('<div/>', {'class': 'col-2', 'text': person.location.state});
-	var plusIcon = $('<div/>', {'class': 'col-1', 'text': '+'});
+	var plusIcon = $('<div/>', {'class': 'col-1'}).append($('<img class="plusIcon" src="plusIcon.jpg">'));
 
 	$(appendToElement).append(photo, lastName,firstName, username, phone, location, plusIcon);
 }
 
 var createCardBody = function(person, appendToElement){
 	var cardBody = $('<div/>', {'class': 'card-body'});
+	var divContainer = $('<div/>', {'class': 'container'});
 	var dataParentController = $('<div/>', {'id': 'collapse'+person.login.uuid, 'class': 'collapse', 'data-parent': '#accord'});
-	createCardBodyInfo(person, cardBody);
-	dataParentController.append(cardBody);
+	cardBody.append(divContainer);
+	createCardBodyInfo(person, divContainer);
+	dataParentController.append(divContainer);
 	$(appendToElement).append(dataParentController);
 }
 
 var createCardBodyInfo = function(person, appendToElement){
-	var nameAndIcon = $('<div/>', {'class': 'row', 'text': 'name icon'});
-	var detailedInfo = $('<div/>', {'class': 'row'});
+	var nameAndIcon = $('<div/>', {'class': 'row person-first-name', 'text': person.name.first});
+	var detailedInfo = $('<div/>', {'class': 'row person-detail-data'});
 	createDetailedInfo(person, detailedInfo);
-
 	$(appendToElement).append(nameAndIcon, detailedInfo);
-
-
 }
 
 var createDetailedInfo = function(person, appendToElement){
-	var username = $('<div/>', {'class': 'row', 'text': 'Username: '});
-	var registred = $('<div/>', {'class': 'row', 'text': 'Registred: '}) ;
-	var email = $('<div/>', {'class': 'row', 'text': 'Email: '}) ;
+	var username = $('<div/>', {'class': 'row', 'text': 'Username: ' + person.login.username});
+	var registred = $('<div/>', {'class': 'row', 'text': 'Registred: ' + person.registered.date}) ;
+	var email = $('<div/>', {'class': 'row', 'text': 'Email: ' + person.email}) ;
 
 	var div1 = $('<div/>', {'class': 'col-3'});
 	div1.append(username, registred, email);
 
-	var adress = $('<div/>', {'class': 'row', 'text': 'Adress: '});
-	var city = $('<div/>', {'class': 'row', 'text': 'City: '}) ;
-	var zip = $('<div/>', {'class': 'row', 'text': 'Zip Code: '}) ;
+	var adress = $('<div/>', {'class': 'row', 'text': 'Adress: '+ person.location.street.name +
+																  ', ' + person.location.street.number});
+	var city = $('<div/>', {'class': 'row', 'text': 'City: ' + person.location.city}) ;
+	var zip = $('<div/>', {'class': 'row', 'text': 'Zip Code: ' + person.location.postcode}) ;
 
 	var div2 = $('<div/>', {'class': 'col-3'});
 	div2.append(adress, city, zip);
 
-	var birthday = $('<div/>', {'class': 'row', 'text': 'Birthday: '});
-	var phone = $('<div/>', {'class': 'row', 'text': 'Phone: '}) ;
-	var cell = $('<div/>', {'class': 'row', 'text': 'Cell: '}) ;
+	var birthday = $('<div/>', {'class': 'row', 'text': 'Birthday: ' + person.dob.date});
+	var phone = $('<div/>', {'class': 'row', 'text': 'Phone: ' + person.phone}) ;
+	var cell = $('<div/>', {'class': 'row', 'text': 'Cell: ' + person.cell}) ;
 
 	var div3 = $('<div/>', {'class': 'col-3'});
 	div3.append(birthday, phone, cell);
@@ -87,3 +94,22 @@ var createDetailedInfo = function(person, appendToElement){
 	$(appendToElement).append(div1, div2, div3, photoLarge);
 }
 
+var createChart = function(maleCount, femaleCount){
+	var ctx = $('#myChart');
+	var labels = ['Male', 'Female'];
+	var colors = ['blue', 'red'];
+
+	var myChart = new Chart(ctx, {
+		type: 'pie',
+		data:{
+			datasets:[{
+				data: [maleCount,femaleCount],
+				backgroundColor:colors
+			}],
+			labels:labels
+		},
+		options: {
+			responsive: true
+		}
+	})
+}
