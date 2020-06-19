@@ -16,6 +16,8 @@ $.ajax({
 	    	}
 	    	});
     	createChart(maleCount, femaleCount);  
+
+    	$("#myInput").on("keyup", filterByFirstName());
 	}
 });
 
@@ -36,7 +38,7 @@ var createPersonMainInfoRow = function(person, appendToElement){
 							.append($('<img/>',	 {'src': person.picture.thumbnail,
                             		  'class':'rounded-circle',
                               		  'alt': 'photo'}));
-	var lastName = $('<div/>', {'class': 'col-2', 'text': person.name.last});
+	var lastName = $('<div/>', {'class': 'col-2 aa', 'text': person.name.last});
 	var firstName = $('<div/>', {'class': 'col-2', 'text': person.name.first});
 	var username = $('<div/>', {'class': 'col-2', 'text': person.login.username});
 	var phone = $('<div/>', {'class': 'col-2', 'text': person.phone});
@@ -112,4 +114,8 @@ var createChart = function(maleCount, femaleCount){
 			responsive: true
 		}
 	})
+}
+
+var filterByFirstName = function(){
+	// .....
 }
