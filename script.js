@@ -1,6 +1,7 @@
 const maxUsersCount = 50;
 var maleCount = 0;
 var femaleCount = 0;
+var id = 0;
 
 $.ajax({
 	url: 'https://randomuser.me/api/?results='+maxUsersCount,
@@ -9,6 +10,7 @@ $.ajax({
 
     dataPerson.results.forEach(person => {
     	createAccordionElement(person);
+    	id++;
 	    	if(person.gender === 'male'){
 	    		maleCount++;
 	    	} else {
@@ -22,8 +24,8 @@ $.ajax({
 });
 
 var createAccordionElement = function(person){
-	var accordionControl = $('<div/>', {'class': 'row', 'data-toggle': 'collapse', 'data-target': '#collapse'+person.login.uuid, 'aria-expanded': 'false',
-										 'aria-controls': 'collapse'+person.login.uuid});
+	var accordionControl = $('<div/>', {'class': 'row', 'data-toggle': 'collapse', 'data-target': '#collapse'+id, 'aria-expanded': 'false',
+										 'aria-controls': 'collapse'+id});
 	createPersonMainInfoRow(person, accordionControl)
 	var cardHeader = $('<div/>', {'class': 'card-header'});
 	var card = $('<div/>', {'class': 'card'});
@@ -51,7 +53,7 @@ var createPersonMainInfoRow = function(person, appendToElement){
 var createCardBody = function(person, appendToElement){
 	var cardBody = $('<div/>', {'class': 'card-body'});
 	var divContainer = $('<div/>', {'class': 'container'});
-	var dataParentController = $('<div/>', {'id': 'collapse'+person.login.uuid, 'class': 'collapse', 'data-parent': '#accord'});
+	var dataParentController = $('<div/>', {'id': 'collapse'+id, 'class': 'collapse', 'data-parent': '#accord'});
 	cardBody.append(divContainer);
 	createCardBodyInfo(person, divContainer);
 	dataParentController.append(divContainer);
