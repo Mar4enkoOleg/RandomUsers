@@ -1,0 +1,45 @@
+div.card-header{
+	font-size: 13px;
+}
+div.person-detail-data{
+	font-size: 11px;
+}
+div.card:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+div.listHead{
+	 margin-left: 10px;
+	 margin-right: 10px;
+	 font-weight: bold;
+}
+div.upper-container{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+span.d{
+	font-weight: 50px;
+}
+span.personsData{
+	font-weight: normal;
+}
+
+div.first-name-class{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+div.detail-info-class{
+	font-size: 11px;
+	font-weight: bold;
+}
+
+img.plus-icon{
+	height: 23px;
+	width: 23px;
+}
+img.minus-icon{
+	height: 23px;
+	width: 23px;
+	display: none;
+}
