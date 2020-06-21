@@ -16,11 +16,18 @@ $.ajax({
                 femaleCount++;
             }
         })
+        // ?????
         //switch plus minus icon
         $('.accordion .card-header').on('click', function(){
-
+            console.log('click  ' + this.className);
+            // if($(this).children[1].className ==='.show'){
+            //     console.log('has class .show');
+            // } else {
+            //     console.log('has not class .show');
+            // }
         });
-        //find by first name ???
+        // ?????
+        //find by first name
         $("#myInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $(".card").filter(function() {
@@ -34,7 +41,7 @@ $.ajax({
 var createCard = function(person) {
     var card = `<div class="card">
 		            <div class="card-header" id="heading${id}">
-		               <div class="row" type="button" data-toggle="collapse" data-target="#collapse${id}" aria-expanded="true" aria-controls="collapse${id}">
+		               <div class="row main-info" type="button" data-toggle="collapse" data-target="#collapse${id}" aria-expanded="true" aria-controls="collapse${id}">
 		                  <div class="col-1 main-info-class"><img src=${person.picture.thumbnail} class="rounded-circle" alt="photo"></img></div>
 		                  <div class="col-2 main-info-class">${person.name.last}</div>
 		                  <div class="col-2 main-info-class first-name1">${person.name.first}</div>
@@ -51,7 +58,7 @@ var createCard = function(person) {
 	                        <div class="row">
 	                          <div class="col-3">
 	                              <div class="row detail-info-class">Username &nbsp;<span class="personsData">${person.login.username}</span></div>
-	                              <div class="row detail-info-class">Registered &nbsp;<span class="personsData">${person.registered.date}</span></div>
+	                              <div class="row detail-info-class">Registered &nbsp;<span class="personsData">${person.registered.date.slice(0, -14)}</span></div>
 	                              <div class="row detail-info-class">Email &nbsp;<span class="personsData">${person.email}</span></div>
 	                          </div>
 	                          <div class="col-3">
@@ -60,7 +67,7 @@ var createCard = function(person) {
 	                              <div class="row detail-info-class">Zip Code &nbsp;<span class="personsData">${person.location.postcode}</span></div>
 	                          </div>
 	                          <div class="col-3">
-	                              <div class="row detail-info-class">Birthday &nbsp;<span class="personsData">${person.dob.date}</span></div>
+	                              <div class="row detail-info-class">Birthday &nbsp;<span class="personsData">${person.dob.date.slice(0, -14)}</span></div>
 	                              <div class="row detail-info-class">Phone &nbsp;<span class="personsData">${person.phone}</span></div>
 	                              <div class="row detail-info-class">Cell &nbsp;<span class="personsData">${person.cell}</span></div>
 	                          </div>
