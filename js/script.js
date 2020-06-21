@@ -19,7 +19,7 @@ $.ajax({
         // ?????
         //switch plus minus icon
         $('.accordion .card-header').on('click', function(){
-            console.log('click  ' + this.className);
+            //console.log('click  ' + this.className);
             // if($(this).children[1].className ==='.show'){
             //     console.log('has class .show');
             // } else {
@@ -31,7 +31,7 @@ $.ajax({
         $("#myInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $(".card").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                $(this).toggle($('first-name1').text().toLowerCase().indexOf(value) > -1);
             });
         });
         createChart(maleCount, femaleCount);
