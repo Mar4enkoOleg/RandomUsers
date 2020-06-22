@@ -26,7 +26,7 @@ $.ajax({
         $("#myInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $(".card").filter(function() {
-                $(this).toggle($('first-name1').text().toLowerCase().indexOf(value) > -1);
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });
         createChart(maleCount, femaleCount);
