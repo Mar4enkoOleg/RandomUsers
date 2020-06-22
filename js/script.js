@@ -10,11 +10,6 @@ $.ajax({
         dataPerson.results.forEach(person => {
             $('#accordionExample').append(createCard(person));
             id++;
-            if (person.gender === 'male') {
-                maleCount++;
-            } else {
-                femaleCount++;
-            }
         })
         // ?????
         //switch plus minus icon
@@ -39,6 +34,14 @@ $.ajax({
 });
 
 var createCard = function(person) {
+    var gender;
+    if(person.gender === 'male'){
+        gender = 'assets/img/male.png';
+        maleCount++;
+    } else {
+        gender = 'assets/img/female.png';
+        femaleCount++;
+    }
     var card = `<div class="card">
 		            <div class="card-header" id="heading${id}">
 		               <div class="row main-info" type="button" data-toggle="collapse" data-target="#collapse${id}" aria-expanded="true" aria-controls="collapse${id}">
@@ -54,7 +57,7 @@ var createCard = function(person) {
 		            <div id="collapse${id}" class="collapse" aria-labelledby="heading${id}" data-parent="#accordionExample">
 		               <div class="card-body">
 		                  <div class="container">
-	                        <div class="row first-name-class">${person.name.first}</div>
+	                        <div class="row first-name-class">${person.name.first}<img src=${gender} class="gender-icon"></img></div>
 	                        <div class="row">
 	                          <div class="col-3">
 	                              <div class="row detail-info-class">Username &nbsp;<span class="personsData">${person.login.username}</span></div>
